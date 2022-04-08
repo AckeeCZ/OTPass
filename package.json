@@ -7,7 +7,12 @@
     "build": "tsc",
     "start": "cross-env NODE_PATH=dist node dist/index.js",
     "start-lr": "tsc-watch --onSuccess \"npm run start\"",
-    "test": "./node_modules/.bin/mocha --require ts-node/register test/*.ts"
+    "test": "./node_modules/.bin/mocha --require ts-node/register test/*.ts",
+    "cs:eslint:check": "eslint --ignore-path .gitignore '**/*.ts' -f codeframe",
+    "cs:eslint:fix": "npm run cs:eslint:check -- --fix",
+    "prepare": "husky install",
+    "cs:prettier:check": "prettier --ignore-path .gitignore --check '**/*.{ts,js,json,md}'",
+    "cs:prettier:fix": "npm run cs:prettier:check -- --write '**/*.{ts,js,json,md}'"
   },
   "author": "Ladislav Louka",
   "license": "MIT",
@@ -16,11 +21,13 @@
     "typescript": "^4.6.2"
   },
   "devDependencies": {
+    "@ackee/styleguide-backend-config": "^0.3.0",
     "@types/chai": "^4.3.0",
     "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.21",
     "chai": "^4.3.6",
     "mocha": "^9.2.2",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.7.0",
+    "husky": "^7.0.0"
   }
 }

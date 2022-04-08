@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run cs:prettier:fix
+npx eslint --fix
+npm test -- --ci
