@@ -4,7 +4,7 @@ enum HMACAlgorithm {
   SHA512 = 'sha512',
 }
 
-type HOTPValidationResult = {
+interface HOTPValidationResult {
   success: boolean
   movingFactor: number
 }
