@@ -42,23 +42,21 @@ export const validate = (
   testedValue: string,
   secret: Buffer,
   movingFactor: number,
-  slidingWindow: { back?: number; forward?: number } = {},
+  slidingWindow = 0,
   options: {
     codeLength?: number
     truncationOffset?: number
     algorithm?: HMACAlgorithm
   } = {}
 ) => {
-  const { back = 0, forward = 0 } = slidingWindow
-
   for (
-    let index = movingFactor - back;
-    index < movingFactor + forward;
+    let index = movingFactor;
+    index < movingFactor + slidingWindow;
     index++
   ) {
     if (generate(secret, index, options) === testedValue) {
-      return true
+      return { success: true, movingFactor: index }
     }
   }
-  return false
+  return { success: false, movingFactor: -1 }
 }

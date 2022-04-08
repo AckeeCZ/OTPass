@@ -36,4 +36,12 @@ describe('HOTP Generation', () => {
       })
     })
   })
+  describe('Validation', () => {
+    it.skip('should validate basic results', () => {
+      console.log('NYI')
+    })
+    it.skip('should be able to support sliding window', () => {
+      console.log('NYI')
+    })
+  })
 })

@@ -102,9 +102,6 @@ fabric.properties
 # Bower
 public/bower_components
 
-# Eslint
-.eslintrc.js
-
 # Docs output
 docs-output/*
 !docs-output/.gitkeep

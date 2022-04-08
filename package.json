@@ -1,6 +1,6 @@
 {
   "name": "otp-test",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Test for otp token 2nd factor authentification implementation",
   "main": "src/index.js",
   "scripts": {
