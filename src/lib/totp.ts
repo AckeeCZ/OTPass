@@ -1,4 +1,4 @@
-import { HOTP } from 'index'
+import { HOTP } from '../index'
 import { HMACAlgorithm } from './utils'
 
 export const generate = (
