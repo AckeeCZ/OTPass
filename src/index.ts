@@ -1,4 +1,4 @@
 import * as HOTP from './lib/hotp'
-import { HMACAlgorithm } from './lib/utils'
+import { HMACAlgorithm, generateURI, URItype } from './lib/utils'
 
-export { HOTP, HMACAlgorithm }
+export { HOTP, HMACAlgorithm, generateURI, URItype }
