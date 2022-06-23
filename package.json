@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Module for otp token 2nd factor authentification implementation",
   "main": "src/index.js",
+  "engines": {
+    "node": ">=0.14.0"
+  },
   "scripts": {
     "build": "tsc",
     "start": "cross-env NODE_PATH=dist node dist/index.js",
