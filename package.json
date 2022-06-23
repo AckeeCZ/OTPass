@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "OTP",
   "version": "0.1.0",
-  "description": "Test for otp token 2nd factor authentification implementation",
+  "description": "Module for otp token 2nd factor authentification implementation",
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
