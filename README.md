@@ -1,3 +1,3 @@
-### OTP demo
+### OTP
 
-Sample library to work with one time passwords based on the RFC4226
+Module for HOTP and TOTP one time password codes without any dependencies for Node.
