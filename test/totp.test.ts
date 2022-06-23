@@ -1,8 +1,8 @@
 import { expect } from 'chai'
-import { HMACAlgorithm, TOTP } from '../src'
+import { HMACAlgorithm, TOTP, UnixTimestamp } from '../src'
 
 describe('TOTP Generation', () => {
-  describe('TOTP reference', () => {
+  describe('TOTP rfc6238 reference', () => {
     it('should fit SHA1 TOTP reference results', () => {
       const secret20 = Buffer.from('12345678901234567890', 'ascii')
       expect(
@@ -140,6 +140,66 @@ describe('TOTP Generation', () => {
           algorithm: HMACAlgorithm.SHA512,
         })
       ).to.equal('47863826')
+    })
+  })
+})
+
+describe('TOTP Validation', () => {
+  const generateAndValidate = (
+    secret: Buffer,
+    slidingWindow: number,
+    validationDelay: number,
+    options: {
+      codeLength?: number
+      truncationOffset?: number
+      algorithm?: HMACAlgorithm
+      receiveTime?: UnixTimestamp
+      timeStep?: number
+      clockStart?: UnixTimestamp
+    }
+  ) => {
+    return TOTP.validate(
+      TOTP.generate(secret, options),
+      secret,
+      slidingWindow,
+      {
+        ...options,
+        receiveTime:
+          (options.receiveTime ?? Math.floor(new Date().getTime() / 1000)) +
+          (validationDelay ?? 0),
+      }
+    )
+  }
+  describe('TOTP rfc6238 reference', () => {
+    const secret20 = Buffer.from('12345678901234567890', 'ascii')
+    it('should fit SHA1 TOTP reference results', () => {
+      expect(
+        generateAndValidate(secret20, 0, 0, {
+          receiveTime: 59,
+          codeLength: 8,
+          algorithm: HMACAlgorithm.SHA1,
+        }).success
+      ).to.equal(true)
+    })
+    it('should fail once time block has elapsed', () => {
+      expect(
+        generateAndValidate(secret20, 0, 2, {
+          receiveTime: 59,
+          codeLength: 8,
+          algorithm: HMACAlgorithm.SHA1,
+          timeStep: 30,
+        }).success
+      ).to.equal(false)
+    })
+    it('should not fail on time block if sliding window is allowed', () => {
+      expect(
+        generateAndValidate(secret20, 1, 2, {
+          receiveTime: 59,
+          codeLength: 8,
+          algorithm: HMACAlgorithm.SHA1,
+          timeStep: 30,
+        }).success
+      ).to.equal(false)
     })
   })
 })

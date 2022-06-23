@@ -11,6 +11,8 @@ enum URItype {
   TOTP = 'totp',
 }
 
+export type UnixTimestamp = number
+
 interface HOTPValidationResult {
   success: boolean
   movingFactor: number
