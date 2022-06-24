@@ -13,7 +13,7 @@ describe('URI Generation', () => {
         'serviceName',
         'user',
         URItype.HOTP,
-        { algorithm: HMACAlgorithm.SHA256, digits: 6 },
+        { algorithm: HMACAlgorithm.SHA256, digits: 6, counter: 0 },
         { issuer: 'Example' }
       )
     )
