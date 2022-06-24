@@ -51,7 +51,7 @@ export const validate = (
 ) => {
   for (
     let index = movingFactor;
-    index < movingFactor + slidingWindow;
+    index <= movingFactor + slidingWindow;
     index++
   ) {
     if (generate(secret, index, options) === testedValue) {

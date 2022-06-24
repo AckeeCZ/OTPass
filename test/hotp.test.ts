@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { HMACAlgorithm, HOTP } from '../src'
 
-describe('HOTP Generation', () => {
-  describe('HOTP reference', () => {
+describe('HOTP', () => {
+  describe('RFC4226 reference', () => {
     const referenceSecret = Buffer.from(
       '3132333435363738393031323334353637383930',
       'hex'
@@ -22,13 +22,12 @@ describe('HOTP Generation', () => {
     })
   })
 
+  const referenceSecret = Buffer.from(
+    '3132333435363738393031323334353637383930',
+    'hex'
+  )
   describe('Parameter support', () => {
     it('should not fail on any supported algorithms', () => {
-      const referenceSecret = Buffer.from(
-        '3132333435363738393031323334353637383930',
-        'hex'
-      )
-
       Object.values(HMACAlgorithm).forEach(algorithm => {
         expect(() =>
           HOTP.generate(referenceSecret, 0, { algorithm })
@@ -37,11 +36,45 @@ describe('HOTP Generation', () => {
     })
   })
   describe('Validation', () => {
-    it.skip('should validate basic results', () => {
-      console.log('NYI')
+    const generateAndValidate = (
+      secret: Buffer,
+      slidingWindow: number,
+      movingFactor: number,
+      counterInequality: number,
+      options: {
+        codeLength?: number
+        truncationOffset?: number
+        algorithm?: HMACAlgorithm
+      }
+    ) => {
+      return HOTP.validate(
+        HOTP.generate(secret, movingFactor, options),
+        secret,
+        movingFactor - counterInequality,
+        slidingWindow,
+        options
+      )
+    }
+    it('should validate basic results', () => {
+      Object.values(HMACAlgorithm).forEach(algorithm => {
+        expect(
+          generateAndValidate(referenceSecret, 0, 0, 0, { algorithm }).success
+        ).to.equal(true)
+      })
     })
-    it.skip('should be able to support sliding window', () => {
-      console.log('NYI')
+    it('should be able to support sliding window', () => {
+      Object.values(HMACAlgorithm).forEach(algorithm => {
+        expect(
+          generateAndValidate(referenceSecret, 1, 0, 1, { algorithm }).success
+        ).to.equal(true)
+      })
+    })
+    it('should not allow backwards sliding window (repeat attack)', () => {
+      Object.values(HMACAlgorithm).forEach(algorithm => {
+        expect(
+          generateAndValidate(referenceSecret, 1, 0, -1, { algorithm }).success
+        ).to.equal(false)
+      })
     })
   })
 })
