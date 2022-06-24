@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import { HMACAlgorithm, TOTP, UnixTimestamp } from '../src'
 
-describe('TOTP Generation', () => {
-  describe('TOTP rfc6238 reference', () => {
-    it('should fit SHA1 TOTP reference results', () => {
+describe('TOTP', () => {
+  describe('RFC6238 reference', () => {
+    it('should fit SHA1 reference results', () => {
       const secret20 = Buffer.from('12345678901234567890', 'ascii')
       expect(
         TOTP.generate(secret20, {
@@ -48,7 +48,7 @@ describe('TOTP Generation', () => {
         })
       ).to.equal('65353130')
     })
-    it('should fit SHA256 TOTP reference results', () => {
+    it('should fit SHA256 reference results', () => {
       const secret32 = Buffer.from('12345678901234567890123456789012', 'ascii')
       expect(
         TOTP.generate(secret32, {
@@ -93,7 +93,7 @@ describe('TOTP Generation', () => {
         })
       ).to.equal('77737706')
     })
-    it('should fit SHA512 TOTP reference results', () => {
+    it('should fit SHA512 reference results', () => {
       const secret64 = Buffer.from(
         '1234567890123456789012345678901234567890123456789012345678901234',
         'ascii'
@@ -144,7 +144,7 @@ describe('TOTP Generation', () => {
   })
 })
 
-describe('TOTP Validation', () => {
+describe('Validation', () => {
   const generateAndValidate = (
     secret: Buffer,
     slidingWindow: number,
@@ -170,7 +170,7 @@ describe('TOTP Validation', () => {
       }
     )
   }
-  describe('TOTP rfc6238 reference', () => {
+  describe('RFC6238 reference', () => {
     const secret20 = Buffer.from('12345678901234567890', 'ascii')
     it('should fit SHA1 TOTP reference results', () => {
       expect(
