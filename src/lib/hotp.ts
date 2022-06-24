@@ -1,14 +1,17 @@
 import { HMACAlgorithm } from './utils'
 import { createHmac } from 'node:crypto'
 
+export interface HOTPOptions {
+  /** Length of generated value */
+  codeLength?: number
+  truncationOffset?: number
+  algorithm?: HMACAlgorithm
+}
+
 export const generate = (
   secret: Buffer,
   movingFactor: number,
-  options: {
-    codeLength?: number
-    truncationOffset?: number
-    algorithm?: HMACAlgorithm
-  } = {}
+  options: HOTPOptions = {}
 ) => {
   // Default recommended configuration
   const {
@@ -43,11 +46,7 @@ export const validate = (
   secret: Buffer,
   movingFactor: number,
   slidingWindow = 0,
-  options: {
-    codeLength?: number
-    truncationOffset?: number
-    algorithm?: HMACAlgorithm
-  } = {}
+  options: HOTPOptions = {}
 ) => {
   for (
     let index = movingFactor;

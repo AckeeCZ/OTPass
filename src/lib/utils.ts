@@ -13,10 +13,21 @@ enum URItype {
 
 export type UnixTimestamp = number
 
+/**
+ * Returning value of HOTP validation
+ */
 interface HOTPValidationResult {
+  /** Has the validation succeeded withing parameters */
   success: boolean
+  /** Counter value where congruence was found, server side counter should be set to this value + 1 to disallow repetition */
   movingFactor: number
 }
+
+/**
+ * Alias for node:crypto.randomBytes
+ * @param secretLength Byte length of the secret, minimum should be 16 bytes, recommended value is 20 bytes or more
+ * @returns Secret in buffer form
+ */
 
 const generateSecret = (secretLength: number) => {
   return randomBytes(secretLength)
@@ -53,7 +64,7 @@ interface URIMakerFunction {
     options: {
       algorithm: HMACAlgorithm
       digits: number
-      counter?: number
+      counter: number
     },
     params: Record<string, string>
   ): string
@@ -70,6 +81,17 @@ interface URIMakerFunction {
     params: Record<string, string>
   ): string
 }
+
+/**
+ *
+ * @param secret - The shared secret (Arbitrary key as specified in RFC 3548, padding should be omitted)
+ * @param serviceName - Service name to be included as identifier for the authentification app
+ * @param user - Username to identify the secret by
+ * @param type - hotp or totp (hmac one time password / time-based one time password)
+ * @param options - The used settings for generating password - algorithm, digits and counter (initial counter value) or period, which one depends on whether hotp or totp is used (counter is required, period is optional - period can be also ignored by many implementations)
+ * @param params - Other options to be included in the URI - specifically issuer is highly recommended: https://github.com/google/google-authenticator/wiki/Key-Uri-Format#issuer, handling of these parameters is highly dependent on implementations
+ * @returns The generated URI (ideally to be encoded within QR code for scan)
+ */
 
 const generateURI: URIMakerFunction = (
   secret,
