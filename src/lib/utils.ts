@@ -25,11 +25,19 @@ interface HOTPValidationResult {
 
 /**
  * Alias for node:crypto.randomBytes
- * @param secretLength Byte length of the secret, minimum should be 16 bytes, recommended value is 20 bytes or more
+ * @param secretLength Byte length of the secret, minimum should be 16 bytes, recommended value is 20 bytes or more, also accepts defined algorithms for which it creates optimal length as recommended
  * @returns Secret in buffer form
  */
 
-const generateSecret = (secretLength: number) => {
+const generateSecret = (secretLength: number | HMACAlgorithm) => {
+  const algorithmToByteSize = {
+    [HMACAlgorithm.SHA1]: 20,
+    [HMACAlgorithm.SHA256]: 32,
+    [HMACAlgorithm.SHA512]: 64,
+  }
+  if (typeof secretLength === 'string') {
+    return randomBytes(algorithmToByteSize[secretLength])
+  }
   return randomBytes(secretLength)
 }
 

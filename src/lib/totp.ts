@@ -33,6 +33,41 @@ export const generate = (secret: Buffer, options: TOTPOptions = {}) => {
   )
 }
 
+interface BulkCode {
+  code: string
+  validityStart: UnixTimestamp
+  validityEnd: UnixTimestamp
+}
+
+/**
+ * Generate bulk TOTP values for given parameters (to reduce amount of requests)
+ * @param secret Shared secret, in Buffer form
+ * @param amount How many codes forward do you want to generate
+ * @param options
+ * @returns
+ */
+export const generateBulk = (
+  secret: Buffer,
+  amount: number,
+  options: TOTPOptions
+): BulkCode[] => {
+  const {
+    receiveTime = Math.floor(new Date().getTime() / 1000),
+    timeStep = 30,
+    clockStart = 0,
+  } = options
+  const result: BulkCode[] = []
+  for (let index = 0; index <= amount; index++) {
+    const timeSlot = Math.floor((receiveTime - clockStart) / timeStep) + index
+    result.push({
+      code: HOTP.generate(secret, timeSlot, options),
+      validityStart: timeSlot * timeStep + clockStart,
+      validityEnd: (timeSlot + 1) * timeStep + clockStart,
+    })
+  }
+  return result
+}
+
 /**
  * Validate TOTP value vs newly generated value from secret
  * @param testedValue - tested TOTP value

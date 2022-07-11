@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { HMACAlgorithm, TOTP, UnixTimestamp } from '../src'
+import { generateSecret, HMACAlgorithm, TOTP, UnixTimestamp } from '../src'
 
 describe('TOTP', () => {
   describe('RFC6238 reference', () => {
@@ -140,6 +140,27 @@ describe('TOTP', () => {
           algorithm: HMACAlgorithm.SHA512,
         })
       ).to.equal('47863826')
+    })
+  })
+  describe('Bulk should equal to singular generation', () => {
+    const secret = generateSecret(HMACAlgorithm.SHA1)
+    it('every value has to be equal to one generated at the time', () => {
+      const bulkValues = TOTP.generateBulk(secret, 50, {
+        receiveTime: 0,
+        timeStep: 50,
+        codeLength: 8,
+        algorithm: HMACAlgorithm.SHA1,
+      })
+      for (let index = 0; index < 50; index++) {
+        expect(
+          TOTP.generate(secret, {
+            receiveTime: 0 + 50 * index,
+            timeStep: 50,
+            codeLength: 8,
+            algorithm: HMACAlgorithm.SHA1,
+          })
+        ).to.equal(bulkValues[index].code)
+      }
     })
   })
 })
