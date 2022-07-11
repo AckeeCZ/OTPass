@@ -23,5 +23,6 @@ describe('URI Generation', () => {
     expect(uri.searchParams.get('algorithm')).to.equal(HMACAlgorithm.SHA256)
     expect(uri.searchParams.get('digits')).to.equal('6')
     expect(uri.searchParams.get('issuer')).to.equal('Example')
+    expect(uri.searchParams.get('secret')).to.equal('JBSWY3DPEHPK3PXP')
   })
 })
