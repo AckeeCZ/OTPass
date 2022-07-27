@@ -1,4 +1,4 @@
-import { HMACAlgorithm } from './utils'
+import { HMACAlgorithm } from '../utils'
 import { createHmac } from 'node:crypto'
 
 export interface HOTPOptions {

@@ -1,19 +1,5 @@
-import * as HOTP from './lib/hotp'
-import * as TOTP from './lib/totp'
-import {
-  HMACAlgorithm,
-  generateURI,
-  URItype,
-  UnixTimestamp,
-  generateSecret,
-} from './lib/utils'
+import * as HOTP from './hotp'
+import * as TOTP from './totp'
+import * as utils from './utils'
 
-export {
-  TOTP,
-  HOTP,
-  HMACAlgorithm,
-  generateURI,
-  generateSecret,
-  URItype,
-  UnixTimestamp,
-}
+export { TOTP, HOTP, utils }

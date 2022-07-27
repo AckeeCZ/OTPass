@@ -1,6 +1,6 @@
 import { HOTP } from '../index'
-import { HOTPOptions } from './hotp'
-import { UnixTimestamp } from './utils'
+import { HOTPOptions } from '../hotp'
+import { UnixTimestamp } from '../utils'
 
 /**
  * Options for TOTP usage

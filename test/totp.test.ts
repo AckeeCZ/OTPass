@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { generateSecret, HMACAlgorithm, TOTP, UnixTimestamp } from '../src'
+import { TOTP } from '../src'
+import { HMACAlgorithm, generateSecret, UnixTimestamp } from '../src/utils'
 
 describe('TOTP', () => {
   describe('RFC6238 reference', () => {

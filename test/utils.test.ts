@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { HMACAlgorithm, URItype, generateURI } from '../src'
+import { HMACAlgorithm, URItype, generateURI } from '../src/utils'
 
 describe('URI Generation', () => {
   it('should generate URI', () => {

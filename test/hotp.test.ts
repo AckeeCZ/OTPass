@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { HMACAlgorithm, HOTP } from '../src'
+import { HOTP } from '../src'
+import { HMACAlgorithm } from '../src/utils'
 
 describe('HOTP', () => {
   describe('RFC4226 reference', () => {
