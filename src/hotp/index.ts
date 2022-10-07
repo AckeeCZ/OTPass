@@ -8,6 +8,13 @@ export interface HOTPOptions {
   algorithm?: HMACAlgorithm
 }
 
+/**
+ * Generate HOTP value
+ * @param secret Shared secret, in Buffer form
+ * @param movingFactor counter value - how many times was the key requested
+ * @param options
+ * @returns
+ */
 export const generate = (
   secret: Buffer,
   movingFactor: number,
@@ -41,6 +48,15 @@ export const generate = (
   return (binary % 10 ** codeLength).toString().padStart(codeLength, '0')
 }
 
+/**
+ * Validate testedValue against generated HOTP value, while taking in account sliding window
+ * @param testedValue tested HOTP value in string form
+ * @param secret Shared secret, in Buffer form
+ * @param movingFactor counter value - how many times was the key requested
+ * @param slidingWindow how many counter values forward can the validation still succeed
+ * @param options
+ * @returns
+ */
 export const validate = (
   testedValue: string,
   secret: Buffer,
