@@ -1,6 +1,6 @@
 {
-  "name": "OTP",
-  "version": "0.1.0",
+  "name": "@ackee/otpass",
+  "version": "0.0.1",
   "description": "Module for otp token 2nd factor authentification implementation",
   "main": "src/index.js",
   "engines": {
