@@ -1,6 +1,6 @@
 {
   "name": "@ackee/otpass",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Module for otp token 2nd factor authentification implementation",
   "main": "src/index.js",
   "engines": {
@@ -18,7 +18,14 @@
     "cs:prettier:check": "prettier --ignore-path .gitignore --check '**/*.{ts,js,json,md}'",
     "cs:prettier:fix": "npm run cs:prettier:check -- --write '**/*.{ts,js,json,md}'"
   },
-  "author": "Ladislav Louka",
+  "author": "Ladislav Louka <ladislav.louka@gmail.com>",
+  "contributors": [
+    "Ladislav Louka <ladislav.louka@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AckeeCZ/otpass"
+  },
   "license": "MIT",
   "devDependencies": {
     "@ackee/styleguide-backend-config": "^0.3.1",
