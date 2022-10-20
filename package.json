@@ -1,10 +1,10 @@
 {
   "name": "@ackee/otpass",
   "version": "0.1.0",
-  "description": "Module for otp token 2nd factor authentification implementation",
+  "description": "Easy to use 2FA module supporting both Timed one-time passwords and Hmac one-time-passwords. Plus helper functions and types so their use is painless.",
   "main": "src/index.js",
   "engines": {
-    "node": ">=0.14.0"
+    "node": ">=14.0.0"
   },
   "scripts": {
     "build": "tsc",
