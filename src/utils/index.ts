@@ -109,14 +109,15 @@ const generateURI: URIMakerFunction = (
   options,
   params
 ) => {
-  const parameters = Object.entries({
+  const result = new URL(`otpauth://${type}/${serviceName}:${user}`)
+  Object.entries({
     ...options,
     ...params,
     secret: convertBase32(secret),
-  })
-    .map(([key, value]) => `${key}=${value}`)
-    .join('&')
-  return `otpauth://${type}/${serviceName}:${user}?${parameters}`
+  }).forEach(([key, value]) =>
+    result.searchParams.append(key, value.toString())
+  )
+  return result.href
 }
 
 export {
