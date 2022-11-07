@@ -41,6 +41,11 @@ const generateSecret = (secretLength: number | HMACAlgorithm) => {
   return randomBytes(secretLength)
 }
 
+/**
+ * Convert Buffer to base32 according to RFC 4648 (see https://www.rfc-editor.org/rfc/rfc4648) as node doesn't support the encoding
+ * @param data Buffer to convert to base32
+ * @returns string which is the base32 encoding of the buffer
+ */
 const convertBase32 = (data: Buffer) => {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
   let bits = 0

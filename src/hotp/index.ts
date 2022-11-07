@@ -1,4 +1,4 @@
-import { HMACAlgorithm } from '../utils'
+import { HMACAlgorithm, HOTPValidationResult } from '../utils'
 import { createHmac } from 'node:crypto'
 
 export interface HOTPOptions {
@@ -63,7 +63,7 @@ export const validate = (
   movingFactor: number,
   slidingWindow = 0,
   options: HOTPOptions = {}
-) => {
+): HOTPValidationResult => {
   for (
     let index = movingFactor;
     index <= movingFactor + slidingWindow;

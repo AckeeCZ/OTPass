@@ -109,3 +109,5 @@ docs-temp/
 
 # Local enviroment variables
 .env/*
+
+package-lock.json
