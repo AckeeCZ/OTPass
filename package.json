@@ -1,6 +1,6 @@
 {
   "name": "@ackee/otpass",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Easy to use 2FA module supporting both Timed one-time passwords (RFC 6238) and Hmac one-time-passwords (RFC 4226). Also contains helper functions and types so their use is as easy as possible.",
   "main": "src/index.js",
   "engines": {
