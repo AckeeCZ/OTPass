@@ -4,7 +4,7 @@
 
 # OTPass
 
-Module for **HOTP** ([IETF RFC 4226](https://www.rfc-editor.org/rfc/rfc4226)) and **TOTP** ([IETF RFC 6238](https://www.rfc-editor.org/rfc/rfc6238)) one time password codes without any dependencies for Node. Fully tested accordign to RFC specification, exposing full API of reference implementations.
+Module for **HOTP** ([IETF RFC 4226](https://www.rfc-editor.org/rfc/rfc4226)) and **TOTP** ([IETF RFC 6238](https://www.rfc-editor.org/rfc/rfc6238)) one time password codes without any dependencies for Node. Fully tested accordign to RFC specification, exposing full API of respective reference implementations.
 
 ## Usage
 OTPass is a library made for easy implementation of OTP functionality into your Node applications.
@@ -16,4 +16,5 @@ OTPass is a library made for easy implementation of OTP functionality into your 
 
 ## What are we talking about here?
 [Time based one-time password (Wikipedia)](https://en.wikipedia.org/wiki/Time-based_one-time_password)
+
 [HMAC based one-time password (Wikipedia)](https://en.wikipedia.org/wiki/HMAC-based_one-time_password)
