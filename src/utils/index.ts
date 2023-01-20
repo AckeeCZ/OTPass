@@ -46,7 +46,7 @@ const generateSecret = (secretLength: number | HMACAlgorithm) => {
  * @param data Buffer to convert to base32
  * @returns string which is the base32 encoding of the buffer
  */
-const convertBase32 = (data: Buffer) => {
+const convertToBase32 = (data: Buffer) => {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
   let bits = 0
   let value = 0
@@ -64,6 +64,24 @@ const convertBase32 = (data: Buffer) => {
 
   if (bits > 0) {
     output += alphabet[(value << (5 - bits)) & 31]
+  }
+  return output
+}
+
+const base32ToBuffer = (input: string) => {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
+  let bits = 0
+  let value = 0
+  let index = 0
+  const output = Buffer.alloc(Math.ceil((input.length * 5) / 8))
+  for (let i = 0; i < input.length; i++) {
+    value = (value << 5) | alphabet.indexOf(input[i].toUpperCase())
+    bits += 5
+
+    if (bits >= 8) {
+      output.writeUInt8((value >>> (bits - 8)) & 255, index++)
+      bits -= 8
+    }
   }
   return output
 }
@@ -118,7 +136,7 @@ const generateURI: URIMakerFunction = (
   Object.entries({
     ...options,
     ...params,
-    secret: convertBase32(secret),
+    secret: convertToBase32(secret),
   }).forEach(([key, value]) =>
     result.searchParams.append(key, value.toString())
   )
@@ -131,4 +149,6 @@ export {
   generateURI,
   URItype,
   generateSecret,
+  convertToBase32,
+  base32ToBuffer,
 }
