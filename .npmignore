@@ -1,0 +1,14 @@
+.vscode
+.github
+.husky
+.vscode
+src
+.editorconfig
+.eslint.tsconfig.json
+.eslintrc.js
+.lintstagedrc
+.nvmrc
+package-lock.json
+prettier.config.js
+tsconfig.json
+tsconfig.tsbuildinfo
