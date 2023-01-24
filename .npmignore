@@ -3,6 +3,7 @@
 .husky
 .vscode
 src
+test
 .editorconfig
 .eslint.tsconfig.json
 .eslintrc.js
