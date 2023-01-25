@@ -57,7 +57,7 @@ export const generateBulk = (
     clockStart = 0,
   } = options
   const result: BulkCode[] = []
-  for (let index = 0; index <= amount; index++) {
+  for (let index = 0; index < amount; index++) {
     const timeSlot = Math.floor((receiveTime - clockStart) / timeStep) + index
     result.push({
       code: HOTP.generate(secret, timeSlot, options),
