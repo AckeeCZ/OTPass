@@ -6,6 +6,6 @@ module.exports = {
   },
   rules: {
     ...require('@ackee/styleguide-backend-config/eslint').rules,
-    'new-cap': 1
+    'new-cap': 1,
   },
 }
